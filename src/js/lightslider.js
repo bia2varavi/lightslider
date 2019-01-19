@@ -779,6 +779,9 @@
                     $(window).on('mousemove', function (e) {
                         if (isDraging) {
                             endCoords = (settings.vertical === true) ? e.pageY : e.pageX;
+                           if(settings.rtl)
+								 $this.touchMove(startCoords,endCoords);
+								else
                             $this.touchMove(endCoords, startCoords);
                         }
                     });
@@ -787,7 +790,7 @@
                             $slide.find('.lightSlider').removeClass('lsGrabbing').addClass('lsGrab');
                             isDraging = false;
                             endCoords = (settings.vertical === true) ? e.pageY : e.pageX;
-                            var distance = endCoords - startCoords;
+                           var distance = (settings.rtl===true)?startCoords - endCoords:endCoords - startCoords;
                             if (Math.abs(distance) >= settings.swipeThreshold) {
                                 $(window).on('click.ls', function (e) {
                                     if (e.preventDefault) {
