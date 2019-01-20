@@ -779,7 +779,7 @@
                     $(window).on('mousemove', function (e) {
                         if (isDraging) {
                             endCoords = (settings.vertical === true) ? e.pageY : e.pageX;
-                           if(settings.rtl)
+							if(settings.rtl)
 								 $this.touchMove(startCoords,endCoords);
 								else
                             $this.touchMove(endCoords, startCoords);
@@ -790,7 +790,7 @@
                             $slide.find('.lightSlider').removeClass('lsGrabbing').addClass('lsGrab');
                             isDraging = false;
                             endCoords = (settings.vertical === true) ? e.pageY : e.pageX;
-                           var distance = (settings.rtl===true)?startCoords - endCoords:endCoords - startCoords;
+                            var distance = (settings.rtl===true)?startCoords - endCoords:endCoords - startCoords;
                             if (Math.abs(distance) >= settings.swipeThreshold) {
                                 $(window).on('click.ls', function (e) {
                                     if (e.preventDefault) {
@@ -844,7 +844,10 @@
                             if ((xMovement * 3) > yMovement) {
                                 e.preventDefault();
                             }
-                            $this.touchMove(endCoords.pageX, startCoords.pageX);
+							if(settings.rtl===true)
+									$this.touchMove( startCoords.pageX,endCoords.pageX);
+								else
+									$this.touchMove(endCoords.pageX, startCoords.pageX);
                         }
 
                     });
@@ -858,7 +861,7 @@
                         if (settings.vertical === true) {
                             distance = endCoords.pageY - startCoords.pageY;
                         } else {
-                            distance = endCoords.pageX - startCoords.pageX;
+                            distance =(settings.rtl===true)  ? startCoords.pageX - endCoords.pageX : endCoords.pageX - startCoords.pageX;
                         }
                         $this.touchEnd(distance);
                     });
